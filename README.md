@@ -1,33 +1,14 @@
-# Marketplace (Vel-Art) — Hito 4: Integración y Despliegue
+# MarketPlace - Hito 4
 
-Este repositorio contiene el proyecto integrador **Marketplace (Vel-Art)** desplegado en producción, incluyendo la aplicación cliente **Frontend** (React + Vite), el servidor **Backend** (Node.js/Express) y la **Base de Datos PostgreSQL** en la nube.
-
----
-
-## 🚀 Enlaces en Producción
-
-- **Aplicación Cliente (Frontend):** `https://tu-frontend.onrender.com` *(se actualizará al desplegar)*
-- **API REST (Backend):** `https://tu-backend.onrender.com` *(se actualizará al desplegar)*
+Proyecto full-stack de una plataforma e-commerce de velas artesanales desarrollada con **Node.js, Express, PostgreSQL** en el backend y **React con Vite** en el frontend.
 
 ---
 
-## 📋 Descripción del Desafío
+## 🚀 Enlaces del Proyecto Desplegado
 
-El cuarto hito consiste en la integración total y el despliegue a internet de todas las capas de la aplicación:
-1. **Despliegue de la Base de Datos PostgreSQL:** Configuración e inicialización de tablas en la nube.
-2. **Despliegue de la API Backend:** Configuración del servidor Node.js/Express conectado a la base de datos de producción.
-3. **Despliegue de la Aplicación Cliente:** Construcción y publicación del Frontend en React.
-4. **Integración End-to-End:** Comunicación fluida entre el cliente y el servidor en producción, garantizando la persistencia de datos y el flujo completo de autenticación JWT.
-
----
-
-## 🛠️ Tecnologías y Servicios en la Nube
-
-- **Plataforma de Despliegue:** Render.com
-- **Base de Datos:** PostgreSQL (Render Cloud Database)
-- **Backend Framework:** Node.js, Express, `pg`, `jsonwebtoken`, `bcryptjs`, `cors`, `dotenv`
-- **Frontend Framework:** React 18 (Vite), React Router DOM (v6), Context API, Bootstrap 5
-- **Cliente HTTP:** Axios (con interceptores para Token JWT)
+- **Frontend (Sitio Web):** [https://front-market.onrender.com/](https://front-market.onrender.com/)
+- **Backend (API REST):** [https://back-market-38t1.onrender.com/](https://back-market-38t1.onrender.com/)
+- **Base de Datos:** PostgreSQL en Render (`marketplace_t7aq`)
 
 ---
 
@@ -35,65 +16,67 @@ El cuarto hito consiste en la integración total y el despliegue a internet de t
 
 ```text
 .
-├── back_market/          # Servidor de API REST (Node.js / Express)
-│   ├── BD/               # Scripts SQL de estructura e inicialización
-│   ├── src/              # Configuración DB, controladores, middlewares y rutas
-│   ├── test/             # Pruebas unitarias/integración con Jest y Supertest
+├── back_market/             # API Backend (Node.js + Express)
+│   ├── BD/                  # Scripts SQL de estructura y carga de datos
+│   │   ├── schema.sql       # Creación de tablas y relaciones
+│   │   └── seed.sql         # Datos de prueba
+│   ├── src/
+│   │   ├── config/          # Conexión a la BD (pg Pool con SSL)
+│   │   ├── controllers/     # Controladores (auth, posts, favs)
+│   │   ├── middlewares/     # Middlewares de autenticación (JWT)
+│   │   ├── routes/          # Rutas de la API REST
+│   │   └── app.js           # Servidor principal de Express
+│   ├── .env_ejemplo         # Plantilla de variables de entorno
 │   └── package.json
 │
-└── front_market/         # Aplicación cliente (React / Vite)
-    ├── public/           # Recursos estáticos
-    ├── src/
-    │   ├── assets/       # Imágenes y recursos gráficos
-    │   ├── components/   # Componentes reutilizables (Navbar, Cards, Modales)
-    │   ├── context/      # Proveedores de Estado Global (UserContext, PostsContext)
-    │   ├── services/     # Configuración de Axios (api.js)
-    │   └── views/        # Vistas (Home, Login, Register, Profile, CreatePost, etc.)
-    ├── index.html
-    └── package.json
+├── front_market/            # Cliente Frontend (React + Vite)
+│   ├── src/
+│   │   ├── components/      # Tarjetas y componentes reutilizables
+│   │   ├── context/         # Contextos de React (UserContext, PostsContext)
+│   │   ├── services/        # Cliente API (Axios / Fetch)
+│   │   ├── views/           # Páginas (Home, Login, Register, Profile, etc.)
+│   │   ├── App.jsx          # Rutas del cliente con React Router
+│   │   └── main.jsx
+│   ├── index.html
+│   └── package.json
+│
+├── .gitignore
+└── README.md
 ```
 
-🌐 Endpoints y Rutas del Sistema
-API Backend (Servidor)
-POST /login — Autenticación de usuario y entrega de Token JWT.
+🛠️ Tecnologías Utilizadas
+Backend: Node.js, Express, PostgreSQL (pg), JSON Web Token (jsonwebtoken), Bcryptjs, CORS, Dotenv.
 
-POST /users — Registro de nuevos usuarios.
+Frontend: React, Vite, React Router DOM, Context API.
 
-GET /posts — Obtener catálogo general de publicaciones.
+Despliegue e Infraestructura: Render (Web Service, Static Site y Managed PostgreSQL).
 
-GET /posts/:id — Detalle de una publicación específica.
+`Backend (back_market/.env)`
+PORT=3000
+DATABASE_URL=postgresql://usuario:password@host.oregon-postgres.render.com/marketplace_db
+JWT_SECRET=tu_clave_secreta_aqui
 
-GET /users/me — Perfil del usuario (Ruta privada - JWT).
+`Frontend (front_market/.env)`
+VITE_API_URL=[https://back-market-38t1.onrender.com](https://back-market-38t1.onrender.com)
 
-POST /posts — Crear publicación (Ruta privada - JWT).
+⚙️ Ejecución en Entorno Local
+Clonar el repositorio:
 
-GET /favorites — Obtener favoritos del usuario (Ruta privada - JWT).
+```Bash
+git clone [https://github.com/walcorpar/MarketPlace-Hito4.git](https://github.com/walcorpar/MarketPlace-Hito4.git)
+cd MarketPlace-Hito4
+```
 
-Navegación Frontend (Cliente)
-/ o /posts — Catálogo general de velas y publicaciones.
-
-/posts/:id — Vista de detalle del producto.
-
-/login — Formulario de inicio de sesión.
-
-/register — Formulario de registro.
-
-/profile — Perfil del usuario autenticado (Protegida).
-
-/create-post — Formulario de creación de publicación (Protegida).
-
-💻 Instrucciones de Ejecución Local
-1. Servidor Backend (back_market)
-
+Backend:
+```Bash
 cd back_market
 npm install
-npm run dev
+npm run dev  # O npm start
+```
 
-2. Cliente Frontend (front_market)
-En una nueva terminal:
-
-cd front_market
+Frontend:
+```Bash
+cd ../front_market
 npm install
 npm run dev
-
-Acceder en el navegador a http://localhost:5173.
+```
