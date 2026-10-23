@@ -1,6 +1,6 @@
 # MarketPlace - Hito 4
 
-Proyecto full-stack de una plataforma e-commerce de velas artesanales desarrollada con **Node.js, Express, PostgreSQL** en el backend y **React con Vite** en el frontend.
+Proyecto full-stack de una plataforma e-commerce de artesanias desarrollada con **Node.js, Express, PostgreSQL** en el backend y **React con Vite** en el frontend.
 
 ---
 
